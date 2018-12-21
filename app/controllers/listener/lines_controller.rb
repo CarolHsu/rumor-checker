@@ -5,6 +5,7 @@ class Listener::LinesController < ApplicationController
     @events.each do |event|
       reply_token = event['replyToken']
       rumor       = event['message']['text']
+      next unless rumor
 
       ReplyWorker.perform_async(reply_token, rumor)
     end
