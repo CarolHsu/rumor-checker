@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace :listener do
+    resource :line, only: [] do
+      member do
+        post :check
+      end
+    end
+  end
 end
