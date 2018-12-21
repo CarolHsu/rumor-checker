@@ -14,7 +14,10 @@ class ReplyDecorator
     @final_reply << conclusion
     @final_reply += gather_reasons
 
-    return @final_reply.join("\n")
+    {
+      type: 'text',
+      text: @final_reply.join("\n"),
+    }
   end
 
   private
