@@ -1,21 +1,18 @@
 class Listener::LinesController < ApplicationController
-  before_action :events, only: [:check]
+  before_action :event, only: [:check]
 
   def check
-    @events.each do |event|
-      reply_token = event['replyToken']
-      rumor       = event['message']['text']
-      next unless rumor
+    reply_token = @event['replyToken']
+    rumor       = @event['message']['text']
 
-      ReplyWorker.perform_async(reply_token, rumor)
-    end
+    ReplyWorker.new.perform(reply_token, rumor) if rumor
 
     head :ok
   end
 
   private
 
-  def events
-    @events = params['events']
+  def event
+    @event = params['events'].first
   end
 end
