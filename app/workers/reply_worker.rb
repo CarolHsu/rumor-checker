@@ -11,7 +11,6 @@ class ReplyWorker
 
     reply = ReplyDecorator.new(replies).prettify
 
-    binding.pry
     talk(reply)
   end
 
