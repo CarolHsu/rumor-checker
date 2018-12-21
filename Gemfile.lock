@@ -41,7 +41,9 @@ GEM
     arel (7.1.4)
     builder (3.2.3)
     byebug (10.0.2)
+    coderay (1.1.2)
     concurrent-ruby (1.1.4)
+    connection_pool (2.2.2)
     crass (1.0.4)
     diff-lcs (1.3)
     erubis (2.7.0)
@@ -76,8 +78,13 @@ GEM
     nokogiri (1.9.1)
       mini_portile2 (~> 2.4.0)
     pg (0.21.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     puma (3.12.0)
     rack (2.0.6)
+    rack-protection (2.0.4)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.7.1)
@@ -107,6 +114,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.2)
@@ -127,6 +135,10 @@ GEM
     rumors-api-client (0.1.3)
       httparty (~> 0.16)
       tf-idf-similarity (~> 0.1)
+    sidekiq (5.2.3)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -159,10 +171,12 @@ DEPENDENCIES
   line-bot-api
   listen (~> 3.0.5)
   pg (~> 0.18)
+  pry
   puma (~> 3.0)
   rails (~> 5.0.5)
   rspec-rails (~> 3.8)
   rumors-api-client
+  sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
