@@ -33,8 +33,11 @@ class ReplyDecorator
     @replies.map do |r|
       type = r['reply']['type']
       reason = r['reply']['text']
+      reference = r['reply']['reference']
 
-      "#{RUMOR_TYPES[type]}理由🔎:\n #{reason}"
+      reply = "#{RUMOR_TYPES[type]}理由🔎:\n #{reason}"
+      reply += "\n 📖 #{reference} "if reference
+      reply
     end
   end
 end
