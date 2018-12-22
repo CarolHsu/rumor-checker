@@ -5,7 +5,7 @@ class Listener::LinesController < ApplicationController
     reply_token = @event['replyToken']
     rumor       = @event['message']['text']
 
-    ReplyWorker.new.perform(reply_token, rumor) if rumor
+    ReplyWorker.perform_async(reply_token, rumor) if rumor
 
     head :ok
   end
@@ -13,6 +13,7 @@ class Listener::LinesController < ApplicationController
   private
 
   def event
+    # TODO(Carol): TBC - not sure if it's always same events
     @event = params['events'].first
   end
 end

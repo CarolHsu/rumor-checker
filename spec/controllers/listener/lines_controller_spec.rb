@@ -44,7 +44,7 @@ RSpec.describe Listener::LinesController, type: :controller do
     end
 
     it 'should assign ReplyWorker' do
-      expect_any_instance_of(ReplyWorker).to receive(:perform).with("00000000000000000000000000000000", "Hello, world").once
+      expect(ReplyWorker).to receive(:perform_async).with("00000000000000000000000000000000", "Hello, world").once
       post :check, params: payload
     end
   end
