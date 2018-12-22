@@ -16,7 +16,7 @@ class ReplyDecorator
 
     {
       type: 'text',
-      text: @final_reply.join("\n"),
+      text: @final_reply.join("\n---------------\n"),
     }
   end
 
@@ -24,9 +24,9 @@ class ReplyDecorator
 
   def conclusion
     types = @replies.map { |r| r['reply']['type'] }
-    return "#{RUMOR_TYPES[types.first]}。" if types.uniq.one?
-    return "部分是謠言。" if types.any? 'RUMOR'
-    return "包含個人觀點。" if types.any? 'OPINIONATED'
+    return "👵 #{RUMOR_TYPES[types.first]}。" if types.uniq.one?
+    return "👵 部分是謠言。" if types.any? 'RUMOR'
+    return "👵 包含個人觀點。" if types.any? 'OPINIONATED'
   end
 
   def gather_reasons
@@ -34,7 +34,7 @@ class ReplyDecorator
       type = r['reply']['type']
       reason = r['reply']['text']
 
-      "#{RUMOR_TYPES[type]}: #{reason}"
+      "#{RUMOR_TYPES[type]}理由🔎:\n #{reason}"
     end
   end
 end
