@@ -2,10 +2,12 @@ class Listener::LinesController < ApplicationController
   before_action :event, only: [:check]
 
   def check
-    reply_token = @event['replyToken']
-    rumor       = @event['message']['text']
+    @events.each do |event|
+      reply_token = event['replyToken']
+      rumor       = event['message']['text']
 
-    ReplyWorker.perform_async(reply_token, rumor) if rumor
+      ReplyWorker.perform_async(reply_token, rumor) if rumor
+    end
 
     head :ok
   end
@@ -13,7 +15,7 @@ class Listener::LinesController < ApplicationController
   private
 
   def event
-    # TODO(Carol): TBC - not sure if it's always same events
-    @event = params['events'].first
+    @uniq_event_tokens = params['events'].map { |e| e['replyToken'] }.uniq
+    @events = params['events'].select { |e| @uniq_event_tokens.include?(e['replyToken']) }
   end
 end
