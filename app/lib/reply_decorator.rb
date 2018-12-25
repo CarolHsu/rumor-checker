@@ -13,10 +13,10 @@ class ReplyDecorator
   def prettify
     @final_reply << conclusion
     @final_reply += gather_reasons
-
+    reminder = "\n歡迎成為闢謠編輯，一起查資料幫大家破解謠言！\nhttps://cofacts.g0v.tw/"
     {
       type: 'text',
-      text: @final_reply.join("\n---------------\n"),
+      text: @final_reply.join("\n---------------\n") + reminder,
     }
   end
 
