@@ -1,0 +1,4 @@
+line_channel_secret: ''
+line_channel_token: ''
+sidekiq_username: ''
+sidekiq_password: ''
