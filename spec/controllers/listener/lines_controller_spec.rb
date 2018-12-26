@@ -34,6 +34,14 @@ RSpec.describe Listener::LinesController, type: :controller do
               "stickerId": "1",
             },
           },
+          {
+            "replyToken": "0f3779fba3b349968c5d07db31eabf65",
+            "type": "memberJoined",
+          },
+          {
+            "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+            "type": "join",
+          },
         ],
       }
     end
@@ -45,6 +53,11 @@ RSpec.describe Listener::LinesController, type: :controller do
 
     it 'should assign ReplyWorker' do
       expect(ReplyWorker).to receive(:perform_async).with("00000000000000000000000000000000", "Hello, world").once
+      post :check, params: payload
+    end
+
+    it 'should introduce when join group / member join group' do
+      expect(Intro).to receive(:talk).twice
       post :check, params: payload
     end
   end
