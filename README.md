@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Usage
 
-Things you may want to cover:
+fill every necessary environment variables in `config/application.yml.example`, and rename it to
 
-* Ruby version
+```
+mv config/application.yml.example config/application.yml
+```
 
-* System dependencies
+Make sure you're using Ruby 2.5.1.
+then follow the usual Rails project installation steps:
 
-* Configuration
+```
+gem install bundler # if you just install ruby 2.5.1
+bundle install
+rake db:create
+rake db:migrate # in fact, schema is empty but if you skip this step, it might complain.
+```
 
-* Database creation
+You can first run it on local site via command
 
-* Database initialization
+```
+rails s
+```
 
-* How to run the test suite
+and if you'd like to test webhook from Line - Yes, you might need to setup line developer account and turn on every needed settings - Which I believe you've done at step 0 `config/application.yml`, now you can start to test by using [ngrok](https://ngrok.com/), the tool is amazingly simple and helpful.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Now, have fun with your own rumor-checker :)
