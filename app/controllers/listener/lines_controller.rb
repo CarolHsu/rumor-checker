@@ -37,6 +37,6 @@ class Listener::LinesController < ApplicationController
 
   def introduce(event)
     reply_token = event['replyToken']
-    IntroWorker.perform_async(reply_token)
+    Intro.talk(reply_token)
   end
 end
