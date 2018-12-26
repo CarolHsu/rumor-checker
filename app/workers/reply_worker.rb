@@ -2,7 +2,7 @@ require 'line/bot'
 
 class ReplyWorker
   include Sidekiq::Worker
-  # sidekiq_options retry: 3
+  sidekiq_options retry: false
 
   def perform(token, rumor)
     @token = token

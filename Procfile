@@ -1,1 +1,1 @@
-replyworker: bundle exec sidekiq -c 2
+replyworker: bundle exec sidekiq -c 25

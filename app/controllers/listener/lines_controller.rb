@@ -4,7 +4,7 @@ class Listener::LinesController < ApplicationController
   def check
     @events.each do |event|
       reply_token = event['replyToken']
-      rumor       = event['message']['text']
+      rumor       = event['message'].try(:[], 'text')
 
       ReplyWorker.perform_async(reply_token, rumor) if rumor
     end
