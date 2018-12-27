@@ -11,6 +11,11 @@ class Listener::LinesController < ApplicationController
 
   private
 
+  def forwardable?(rumor)
+    return false unless rumor
+    rumor.length > 20
+  end
+
   def event
     @uniq_event_tokens = params['events'].map { |e| e['replyToken'] }.uniq
     @events = params['events'].select { |e| @uniq_event_tokens.include?(e['replyToken']) }
@@ -32,7 +37,7 @@ class Listener::LinesController < ApplicationController
     reply_token = event['replyToken']
     rumor       = event['message']['text']
 
-    ReplyWorker.perform_async(reply_token, rumor) if rumor
+    ReplyWorker.perform_async(reply_token, rumor) if forwardable?(rumor)
   end
 
   def introduce(event)
