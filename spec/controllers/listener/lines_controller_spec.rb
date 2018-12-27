@@ -5,7 +5,7 @@ RSpec.describe Listener::LinesController, type: :controller do
     let(:payload) do
       {
         "events": [
-          {
+          { # This message is not forwarded message, should ignore
             "replyToken": "00000000000000000000000000000000",
             "type": "message",
             "timestamp": 1545406547368,
@@ -17,6 +17,21 @@ RSpec.describe Listener::LinesController, type: :controller do
               "id": "100001",
               "type": "text",
               "text": "Hello, world",
+            },
+          },
+          { # This message is a forwarded message, should perform
+            "replyToken": "00000000000000000000000000000001",
+            "type": "message",
+            "timestamp": 1545406547368,
+            "source": {
+              "type": "user",
+              "userId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
+            },
+            "message": {
+              "id": "100001",
+              "type": "text",
+
+              "text": "剛剛美國🇺🇸紐約皇后區發生商業街大爆炸事件。\n又一次911。美國的電視已經在報道。",
             },
           },
           {
@@ -52,7 +67,8 @@ RSpec.describe Listener::LinesController, type: :controller do
     end
 
     it 'should assign ReplyWorker' do
-      expect(ReplyWorker).to receive(:perform_async).with("00000000000000000000000000000000", "Hello, world").once
+      expect(ReplyWorker).not_to receive(:perform_async).with("00000000000000000000000000000000", "Hello, world")
+      expect(ReplyWorker).to receive(:perform_async).with("00000000000000000000000000000001", "剛剛美國🇺🇸紐約皇后區發生商業街大爆炸事件。\n又一次911。美國的電視已經在報道。").once
       post :check, params: payload
     end
 
