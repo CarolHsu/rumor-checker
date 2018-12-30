@@ -8,11 +8,11 @@ fill every necessary environment variables in `config/application.yml.example`, 
 mv config/application.yml.example config/application.yml
 ```
 
-Make sure you're using Ruby 2.5.1.
+Make sure you're using Ruby 2.5.3.
 then follow the usual Rails project installation steps:
 
 ```
-gem install bundler # if you just install ruby 2.5.1
+gem install bundler # if you just install ruby 2.5.3
 bundle install
 rake db:create
 rake db:migrate # in fact, schema is empty but if you skip this step, it might complain.
