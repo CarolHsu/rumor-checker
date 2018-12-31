@@ -1,5 +1,5 @@
 class Listener::LinesController < ApplicationController
-  before_action :event, only: [:check]
+  before_action :set_event, only: [:check]
 
   def check
     @events.each do |event|
@@ -16,9 +16,8 @@ class Listener::LinesController < ApplicationController
     rumor.length > 20
   end
 
-  def event
-    @uniq_event_tokens = params['events'].map { |e| e['replyToken'] }.uniq
-    @events = params['events'].select { |e| @uniq_event_tokens.include?(e['replyToken']) }
+  def set_events
+    @events = params[:events].uniq { |event| event['replyToken'] }
   end
 
   def react(event)
