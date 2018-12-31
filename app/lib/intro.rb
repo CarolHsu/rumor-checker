@@ -1,20 +1,10 @@
-require 'line/bot'
-
 class Intro
   class << self
     def talk(token)
-      initiate_client
-      @client.reply_message(token, introduction)
+      LineBotClient.reply_message(token, introduction)
     end
 
     private
-
-    def initiate_client
-      @client = Line::Bot::Client.new do |config|
-        config.channel_secret = ENV['line_channel_secret']
-        config.channel_token = ENV['line_channel_token']
-      end
-    end
 
     def introduction
       text = <<~INTRO
