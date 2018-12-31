@@ -14,8 +14,6 @@ then follow the usual Rails project installation steps:
 ```
 gem install bundler # if you just install ruby 2.5.3
 bundle install
-rake db:create
-rake db:migrate # in fact, schema is empty but if you skip this step, it might complain.
 ```
 
 You can first run it on local site via command
