@@ -27,3 +27,8 @@ rails s
 and if you'd like to test webhook from Line - Yes, you might need to setup line developer account and turn on every needed settings - Which I believe you've done at step 0 `config/application.yml`, now you can start to test by using [ngrok](https://ngrok.com/), the tool is amazingly simple and helpful.
 
 Now, have fun with your own rumor-checker :)
+
+
+## License
+
+The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
