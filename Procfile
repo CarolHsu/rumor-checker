@@ -1,1 +1,1 @@
-replyworker: bundle exec sidekiq -c 25
+replyworker: bundle exec sidekiq -v -C config/reply_worker.yml
