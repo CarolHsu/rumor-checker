@@ -6,7 +6,7 @@ class ReplyDecorator
   }
 
   def initialize(replies)
-    @replies = JSON.parse(replies)["data"]["GetArticle"]["articleReplies"]
+    @replies = replies
     @final_reply = []
   end
 
