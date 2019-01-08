@@ -2,6 +2,7 @@ class ReplyDecorator
   RUMOR_TYPES = {
     "RUMOR" => "這是謠言",
     "NOT_RUMOR" => "這是真的",
+    "NOT_ARTICLE" => "文章不完整",
     "OPINIONATED" => "個人觀點",
   }
 
@@ -35,8 +36,9 @@ class ReplyDecorator
       reason = r['reply']['text']
       reference = r['reply']['reference']
 
-      reply = "#{RUMOR_TYPES[type]}理由🔎:\n #{reason}"
-      reply += "\n 📖 #{reference} "if reference
+      reply = "#{RUMOR_TYPES[type]}的理由🔎 "
+      reply += "\n#{reason}"
+      reply += "\n📖 #{reference} "if reference
       reply
     end
   end
