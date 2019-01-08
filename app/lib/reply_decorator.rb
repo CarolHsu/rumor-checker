@@ -28,6 +28,7 @@ class ReplyDecorator
     return "👵 #{RUMOR_TYPES[types.first]}。" if types.uniq.one?
     return "👵 部分是謠言。" if types.any? 'RUMOR'
     return "👵 包含個人觀點。" if types.any? 'OPINIONATED'
+    return "👵 文章存疑，目前無人回應。成為第一個回應的闢謠者吧！" if types.size.zero?
   end
 
   def gather_reasons
