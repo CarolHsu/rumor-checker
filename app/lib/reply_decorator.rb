@@ -38,7 +38,7 @@ class ReplyDecorator
 
       reply = "#{RUMOR_TYPES[type]}的理由🔎 "
       reply += "\n#{reason}"
-      reply += "\n📖 #{reference} "if reference
+      reply += "\n📖  #{reference} "if reference.present?
       reply
     end
   end
