@@ -135,7 +135,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    rumors-api-client (0.3.2)
+    rumors-api-client (0.3.3)
       httparty (~> 0.16)
       tf-idf-similarity (~> 0.1)
     sentry-raven (2.7.4)
