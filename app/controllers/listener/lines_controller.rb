@@ -22,7 +22,7 @@ class Listener::LinesController < ApplicationController
   end
 
   def react(event)
-    intro_events = %w(join memberJoined)
+    intro_events = %w(join)
     case event['type']
     when 'message'
       check_rumor(event)
