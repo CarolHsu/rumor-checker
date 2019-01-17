@@ -73,7 +73,7 @@ RSpec.describe Listener::LinesController, type: :controller do
     end
 
     it 'should introduce when join group / member join group' do
-      expect(Intro).to receive(:talk).twice
+      expect(Intro).to receive(:talk).once
       post :check, params: payload
     end
   end
