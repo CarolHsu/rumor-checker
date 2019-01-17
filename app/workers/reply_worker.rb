@@ -6,10 +6,10 @@ class ReplyWorker
 
   def perform(token, rumor)
     @token = token
-    replies = Rumors::Api::Client.search(rumor)
-    return unless replies
+    article = Rumors::Api::Client.search(rumor)
+    return unless article
 
-    reply = ReplyDecorator.new(replies["articleReplies"]).prettify
+    reply = ReplyDecorator.new(article["articleReplies"], article["id"]).prettify
 
     talk(reply)
   end
