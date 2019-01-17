@@ -22,8 +22,8 @@ class ReplyDecorator
 
   def prettify
     @final_reply << conclusion
-    @final_reply += format_replies
-    @final_reply += footnote
+    @final_reply += format_replies if @replies.any?
+    @final_reply << footnote
     {
       type: 'text',
       text: @final_reply.join("\n----------------------------\n")
@@ -33,19 +33,22 @@ class ReplyDecorator
   private
 
   def conclusion
+    return "啊，還沒有人查證喔。成為全球第一個回應的人？" unless @replies.present?
+
     types = @replies.map { |r| r['reply']['type'] }
     h = Hash.new(0)
-    grouped_types = types.each { |v| h[v] +=1 }.sort_by {|_key, value| value}.to_h
+    types.each { |v| h[v] +=1 }
+    grouped_types = h.sort_by {|_key, value| value}.to_h
     
     summary = grouped_types.map do |type, count|
-      "有 #{count} 則查證表示#{type}"
+      "有 #{count} 則查證表示#{RUMOR_TYPES[type]}"
     end.join(', ')
 
     return "#{PREFIX_EMOJIS[:conclusion]} #{summary}"
   end
 
   def format_replies
-    @replies.map do |r|
+    freplies =  @replies.map do |r|
       type = r['reply']['type']
       reason = r['reply']['text']
       reference = r['reply']['reference']
@@ -61,9 +64,10 @@ class ReplyDecorator
       reply += "#{PREFIX_EMOJIS[:reference]} #{reference}" if reference.present?
       reply
     end
+    freplies
   end
 
   def footnote
-    "你也查到了其他的論點嗎？歡迎回應在 #{WEBSITE}#{@article} !"
+    "你也查到了其他的論點嗎？歡迎回應在 #{WEBSITE}#{@article_id} !"
   end
 end
