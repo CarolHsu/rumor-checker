@@ -26,7 +26,7 @@ class ReplyDecorator
     @final_reply << footnote
     {
       type: 'text',
-      text: @final_reply.join("\n----------------------------\n")
+      text: @final_reply.join("\n--------------\n")
     }
   end
 
@@ -55,7 +55,7 @@ class ReplyDecorator
 
       reply = case type
               when "NOT_ARTICLE" then "一則回應表示這#{RUMOR_TYPES["NOT_ARTICLE"]} "
-              when "OPINIONATED" then "一則回應表示這是#{RUMOR_TYPES["NOT_ARTICLE"]} "
+              when "OPINIONATED" then "一則回應表示這是#{RUMOR_TYPES["OPINIONATED"]} "
               else
                 "一則關於#{RUMOR_TYPES[type]}的查證 "
               end
