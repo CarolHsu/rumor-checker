@@ -26,7 +26,7 @@ class ReplyDecorator
     @final_reply << footnote
     {
       type: 'text',
-      text: @final_reply.join("\n----------------------------\n")
+      text: @final_reply.join("\n--------------\n")
     }
   end
 
