@@ -34,10 +34,14 @@ class Listener::LinesController < ApplicationController
   end
 
   def check_rumor(event)
-    reply_token = event['replyToken']
-    rumor       = event['message']['text']
+    information = {
+      'token' => event['replyToken'],
+      'user_id' => event['source']['userId'],
+      'group_id' => event['source']['groupId'] || event['source']['roomId'],
+    }
+    rumor = event['message']['text']
 
-    ReplyWorker.perform_async(reply_token, rumor) if forwardable?(rumor)
+    ReplyWorker.perform_async(information, rumor) if forwardable?(rumor)
   end
 
   def introduce(event)

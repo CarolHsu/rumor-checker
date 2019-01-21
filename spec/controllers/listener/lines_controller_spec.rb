@@ -12,6 +12,7 @@ RSpec.describe Listener::LinesController, type: :controller do
             "source": {
               "type": "user",
               "userId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
+              "groupId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
             },
             "message": {
               "id": "100001",
@@ -26,11 +27,11 @@ RSpec.describe Listener::LinesController, type: :controller do
             "source": {
               "type": "user",
               "userId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
+              "groupId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
             },
             "message": {
               "id": "100001",
               "type": "text",
-
               "text": "剛剛美國🇺🇸紐約皇后區發生商業街大爆炸事件。\n又一次911。美國的電視已經在報道。",
             },
           },
@@ -41,6 +42,7 @@ RSpec.describe Listener::LinesController, type: :controller do
             "source": {
               "type": "user",
               "userId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
+              "groupId": "Udeadbeefdeadbeefdeadbeefdeadbeef",
             },
             "message": {
               "id": "100002",
