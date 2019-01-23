@@ -30,6 +30,10 @@ class ReplyDecorator
     }
   end
 
+  def article_url
+   "#{WEBSITE}#{@article_id}"
+  end
+
   private
 
   def conclusion

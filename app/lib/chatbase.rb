@@ -1,20 +1,20 @@
 class Chatbase
   HOST_URL = "https://chatbase-area120.appspot.com/api/message"
 
-  SUPPORTED_ACTION = %w(intent_with_handling no_intent_without_handling send_bot_message click_link)
+  SUPPORTED_ACTION = %w(intent_with_handling intent_without_handling send_bot_message click_link)
 
-  def initialize(user_id, message, group_id, cofact_article = nil)
-    @user_id = user_id
-    @message = message
-    @group_id = group_id
-    @cofact_article = cofact_article
+  def initialize(options)
+    @user_id = options[:user_id]
+    @message = options[:message]
+    @group_id = options[:group_id]
+    @article_url = options[:article_url]
   end
 
-  def post(action, action_host = nil)
+  def post(action)
     raise StandardError, "Not supported action: #{action}" unless SUPPORTED_ACTION.include? action
 
     action_body = send("#{action}_body")
-    action_host ||= HOST_URL # for click_link
+    action_host = get_current_host(action)
 
     HTTParty.post(
       action_host,
@@ -24,6 +24,15 @@ class Chatbase
   end
 
   private
+
+  def get_current_host(action)
+    case action
+    when 'click_link'
+      "https://chatbase.com/api/click"
+    else
+      HOST_URL
+    end
+  end
 
   def intent_with_handling_body
     {
@@ -39,7 +48,7 @@ class Chatbase
     }
   end
 
-  def no_intent_without_handling_body
+  def intent_without_handling_body
     {
       "api_key" => ENV["chatbase"],
       "type" => "user",
@@ -69,7 +78,7 @@ class Chatbase
   def click_link_body
     {
       "api_key" => ENV['chatbase'],
-      "url" => @cofact_article,
+      "url" => @article_url,
       "platform" => "Line",
       "user_id" => @user_id,
       "version" => "1.1",
