@@ -38,6 +38,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'pry'
   gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
