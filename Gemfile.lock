@@ -163,6 +163,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode_utils (1.4.0)
+    vcr (4.0.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -186,6 +187,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  vcr
 
 RUBY VERSION
    ruby 2.5.1p57
