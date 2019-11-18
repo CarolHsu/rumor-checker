@@ -1,5 +1,9 @@
 # README
 
+## Requirement
+
+You should have a PostgreSQL database running. For those not familiar with PostgreSQL, you can follow the [documentation](https://www.postgresql.org/docs/12/server-start.html).
+
 ## Usage
 
 fill every necessary environment variables in `config/application.yml.example`, and rename it to
