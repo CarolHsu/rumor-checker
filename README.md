@@ -28,6 +28,12 @@ You can first run it on local site via command
 rails s
 ```
 
+You should also start sidekiq in another shell so that the jobs will be processed
+
+```
+bundle exec sidekiq
+``` 
+
 and if you'd like to test webhook from Line - Yes, you might need to setup line developer account and turn on every needed settings - Which I believe you've done at step 0 `config/application.yml`, now you can start to test by using [ngrok](https://ngrok.com/), the tool is amazingly simple and helpful.
 
 Now, have fun with your own rumor-checker :)
