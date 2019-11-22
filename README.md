@@ -29,6 +29,13 @@ and if you'd like to test webhook from Line - Yes, you might need to setup line 
 Now, have fun with your own rumor-checker :)
 
 
+## Run with docker-compose
+```
+docker-compose run web rake db:create db:migrate
+```
+```
+docker-compose up
+```
 ## License
 
 The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
