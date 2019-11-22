@@ -1,13 +1,9 @@
 version: '3'
 services:
   db:
-    #container_name: db
-    # command: 'postgres -D /usr/local/var/postgres'
     ports:
       - "5432:5432"
     volumes:
-      #- $HOME/postgres-data:/var/lib/postgresql
-      #- ./tmp/db:/var/lib/postgresql/data
       - ./tmp/db:/var/run/postgresql
     image: postgres:latest
 
