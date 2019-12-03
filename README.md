@@ -1,5 +1,9 @@
 # README
 
+## Requirement
+
+You should have a PostgreSQL database running. For those not familiar with PostgreSQL, you can follow the [documentation](https://www.postgresql.org/docs/12/server-start.html).
+
 ## Usage
 
 fill every necessary environment variables in `config/application.yml.example`, and rename it to
@@ -24,11 +28,24 @@ You can first run it on local site via command
 rails s
 ```
 
+You should also start sidekiq in another shell so that the jobs will be processed
+
+```
+bundle exec sidekiq
+``` 
+
 and if you'd like to test webhook from Line - Yes, you might need to setup line developer account and turn on every needed settings - Which I believe you've done at step 0 `config/application.yml`, now you can start to test by using [ngrok](https://ngrok.com/), the tool is amazingly simple and helpful.
 
 Now, have fun with your own rumor-checker :)
 
 
+## Run with docker-compose
+```
+docker-compose run web rake db:create db:migrate
+```
+```
+docker-compose up
+```
 ## License
 
 The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
