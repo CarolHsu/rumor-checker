@@ -1,4 +1,4 @@
 ---
-:concurrency: 25
+:concurrency: <%= ENV['sidekiq_concurrency'] %>
 :queues:
     - default
