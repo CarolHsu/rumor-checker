@@ -3,4 +3,3 @@ line_channel_token: ''
 sidekiq_username: ''
 sidekiq_password: ''
 sidekiq_concurrency: 2
-telegram_app_id: ''

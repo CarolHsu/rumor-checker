@@ -11,11 +11,5 @@ Rails.application.routes.draw do
         post :check
       end
     end
-
-    resource :telegram, only: [] do
-      member do
-        post '/:app_id/check', "telegrams#check"
-      end
-    end
   end
 end
