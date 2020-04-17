@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-slim
+FROM ruby:2.6.6-slim
 
 # Install the software you need
 RUN apt-get update \
