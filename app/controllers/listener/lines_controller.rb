@@ -11,11 +11,6 @@ class Listener::LinesController < ApplicationController
 
   private
 
-  def forwardable?(rumor)
-    return false unless rumor
-    rumor.length > 20
-  end
-
   def event
     @uniq_event_tokens = params['events'].map { |e| e['replyToken'] }.uniq
     @events = params['events'].select { |e| @uniq_event_tokens.include?(e['replyToken']) }

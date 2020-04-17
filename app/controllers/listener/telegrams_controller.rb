@@ -5,6 +5,8 @@ class Listener::TelegramsController < ApplicationController
     reply_token = @message[:chat][:id]
     rumor = @message[:text]
 
+    return unless forwardable?(rumor)
+
     ReplyWorker.perform_async(reply_token, rumor, 'telegram')
 
     head :ok
