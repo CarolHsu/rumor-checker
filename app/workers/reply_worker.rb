@@ -25,10 +25,11 @@ class ReplyWorker
     when 'telegram'
       HTTParty.post(
         "https://api.telegram.org/bot#{ENV['telegram_app_token']}/sendMessage",
+        headers: { "Content-Type": "application/json"},
         body: {
           chat_id: @token,
-          text: reply
-        }
+          text: reply[:text]
+        }.to_json
       )
     end
   end
