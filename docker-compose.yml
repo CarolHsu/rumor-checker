@@ -5,6 +5,8 @@ services:
       - "5432:5432"
     volumes:
       - ./tmp/db:/var/run/postgresql
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
     image: postgres:latest
 
   sidekiq:
