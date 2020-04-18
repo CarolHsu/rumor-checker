@@ -70,13 +70,14 @@ class Listener::LinesController < ApplicationController
   def check_intention
     if keywords.include(@rumor.downcase)
       # to start the menu
-      @user ||= User.new(external_id: @user_id, platform: 'line')
-      @user.menu_level = 1
+      @user ||= User.new(external_id: @user_id)
+      @user.from_line unless @user.platform
+      @user.menu_level = 1 # ready to query
       @user.save
       @rumor = "0" # go to menu
     elsif @user.menu_level > 0 && @rumor.downcase == 'ok'
       # to end the menu
-      @user.menu_level = 0
+      @user.menu_level = 0 # stop querying
       @user.save
     end
   end

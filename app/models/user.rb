@@ -5,4 +5,8 @@ class User < Applicationrecord
   }
 
   scope :from_line, -> { where(platform: PLATFORMS[:line]) }
+
+  def from_line
+    self.platform = 'line'
+  end
 end
