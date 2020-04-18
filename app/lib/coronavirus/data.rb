@@ -1,26 +1,22 @@
 class Coronavirus::Data
   KEYWORDS = {
-    "Global": "全球",
-    "NewConfirmed": "最新確診人數",
-    "TotalConfirmed": "總確診人數",
-    "NewDeaths": "最新死亡人數",
-    "TotalDeaths": "總死亡人數",
-    "NewRecovered": "最新治癒人數",
-    "TotalRecovered": "總治癒人數"
+    "Global" => "全球",
+    "NewConfirmed" => "最新確診人數",
+    "TotalConfirmed" => "總確診人數",
+    "NewDeaths" => "最新死亡人數",
+    "TotalDeaths" => "總死亡人數",
+    "NewRecovered" => "最新治癒人數",
+    "TotalRecovered" => "總治癒人數"
   }
 
-  def initalize(timestamp)
+  def initalize(timestamp=Time.zone.now.strftime("%Y%m%d%k"))
     # renew by every hour
-    @timestamp = @timestamp
-    @data = Rails.cache.read(timestamp)
-
-    if @data.nil?
-      @data = get_summary
-      Rails.cache.write(timestamp, @data)
-    end
+    @timestamp = timestamp
+    @data = nil
   end
 
   def process
+    @data = get_summary
     parsed_data = JSON.parse(@data)
     list = get_list(parsed_data)
     humanize_data(list)
@@ -29,16 +25,21 @@ class Coronavirus::Data
   private
 
   def get_summary
-    HTTParty.get('https://api.covid19api.com/summary')
+    Rails.cache.fetch(@timestamp, expires_in: 90.minutes) do
+      HTTParty.get('https://api.covid19api.com/summary').body
+    end
   end
 
   def humanize_data(list)
+    content = ""
     list.map do |row|
-      content = "#{row["Country"]}"
+      country_data = "#{row["Country"]}"
       row.each_pair do |key, value|
         next unless KEYWORDS[key]
-        content += "\n - #{KEYWORDS[key]}: #{value}"
+        country_data += "\n - #{KEYWORDS[key]}: #{value}"
       end
+      country_data += "\n"
+      content += country_data
     end
 
     content
