@@ -3,6 +3,8 @@ class Listener::TelegramsController < ApplicationController
 
   def check
     reply_token = @message[:chat][:id]
+    # TODO: (carol) apply CoronavirusReplyWorker
+    # chat_type = @message[:chat][:type]
     rumor = @message[:text]
 
     return unless forwardable?(rumor)

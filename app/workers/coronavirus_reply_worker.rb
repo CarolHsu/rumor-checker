@@ -26,11 +26,15 @@ class CoronavirusReplyWorker
              end
 
     return if @rumor
-    @answer = '抱歉，這超出我的回答範圍囉。'
+    @answer = invalid_answer
   end
 
   def answer_for_out_of_service_query
-    @answer = '抱歉，這超出我的回答範圍囉。'
+    @answer = invalid_answer
+  end
+
+  def invalid_answer
+    '抱歉，這超出我的回答範圍，請輸入數字或是 0 回到選單，或是 ok 結束對話。'
   end
 
   def answer_for_query
