@@ -1,4 +1,4 @@
-class User < Applicationrecord
+class User < ApplicationRecord
   PLATFORMS = {
     line: 'line',
     telegram: 'telegram'
