@@ -10,8 +10,8 @@ class CoronavirusReplyWorker
     @platform = platform
 
     answer_for_nonsense_query
-    answer_for_out_of_service_query unless @answer
     answer_for_query unless @answer
+    answer_for_out_of_service_query unless @answer
 
     talk(@answer)
   end
@@ -30,11 +30,12 @@ class CoronavirusReplyWorker
   end
 
   def answer_for_out_of_service_query
-    # TODO: build config/coronavirus.yml
+    @answer = '抱歉，這超出我的回答範圍囉。'
   end
 
   def answer_for_query
-    # TODO: build config/coronavirus.yml
+    @answer = MENU[@rumor]
+    @answer = eval(@answer) if @rumor == 1 # http request for latest data
   end
 
   def talk(reply)
