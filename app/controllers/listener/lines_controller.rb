@@ -68,7 +68,7 @@ class Listener::LinesController < ApplicationController
   end
 
   def check_intention
-    if MENU[:keywords].include?(@rumor.downcase)
+    if MENU[:keywords].include?(@rumor&.downcase)
       # to start the menu
       @user ||= User.new(external_id: @user_id)
       @user.from_line unless @user.platform
