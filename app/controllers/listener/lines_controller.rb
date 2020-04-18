@@ -22,7 +22,7 @@ class Listener::LinesController < ApplicationController
     intro_events = %w(join)
     case @event_type
     when 'message'
-      if group_chat?(event)
+      if group_chat?
         check_rumor
       else # 1-on-1 chat
         if about_coronavirus?
@@ -51,7 +51,7 @@ class Listener::LinesController < ApplicationController
     Intro.talk(reply_token)
   end
 
-  def get_params
+  def get_params(event)
     @event_type  = event['type']
     @reply_token = event['replyToken']
     @rumor       = event['message']['text']
@@ -68,14 +68,14 @@ class Listener::LinesController < ApplicationController
   end
 
   def check_intention
-    if MENU[:keywords].include(@rumor.downcase)
+    if MENU[:keywords].include?(@rumor.downcase)
       # to start the menu
       @user ||= User.new(external_id: @user_id)
       @user.from_line unless @user.platform
       @user.menu_level = 1 # ready to query
       @user.save
       @rumor = "0" # go to menu
-    elsif @user.menu_level > 0 && @rumor.downcase == 'ok'
+    elsif @user && @user.menu_level > 0 && @rumor.downcase == 'ok'
       # to end the menu
       @user.menu_level = 0 # stop querying
       @user.save

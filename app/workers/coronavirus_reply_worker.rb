@@ -42,7 +42,7 @@ class CoronavirusReplyWorker
     case @platform
     when 'line'
       client = initiate_client
-      client.reply_message(@token, reply)
+      client.reply_message(@token, { type: "text", text: reply })
     when 'telegram'
       HTTParty.post(
         "https://api.telegram.org/bot#{ENV['telegram_app_token']}/sendMessage",
@@ -52,6 +52,13 @@ class CoronavirusReplyWorker
           text: reply
         }
       )
+    end
+  end
+
+  def initiate_client
+    Line::Bot::Client.new do |config|
+      config.channel_secret = ENV['line_channel_secret']
+      config.channel_token = ENV['line_channel_token']
     end
   end
 end
