@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
-  def keywords
-    # TODO: config/coronavirus.yml
-    ['coronavirus']
+  before_action :set_platform
+
+  def set_platform
+    raise NotImplementedError
   end
 
   def forwardable?(rumor)
@@ -9,15 +10,37 @@ class ApplicationController < ActionController::API
     rumor.length > 20
   end
 
-  def group_chat?
-    raise NotImplementedError
+  def get_current_user
+    @user = User.send("from_#{@platform}").find_by(external_id: @user_id)
   end
 
-  def get_current_user
-    raise NotImplementedError
+  def check_intention
+    if MENU[:keywords].include?(@rumor&.downcase)
+      # to start the menu
+      @user ||= User.new(external_id: @user_id)
+      @user.send("from_#{@platform}") unless @user.platform
+      @user.menu_level = 1 # ready to query
+      @user.save
+      @rumor = "0" # go to menu
+    elsif @user && @user.menu_level > 0 && @rumor&.downcase == 'ok'
+      # to end the menu
+      @user.menu_level = 0 # stop querying
+      @user.save
+    end
   end
 
   def about_coronavirus?
-    raise NotImplementedError
+    get_current_user
+    check_intention
+    return unless @user
+    @user.menu_level > 0
+  end
+
+  def check_rumor
+    ReplyWorker.perform_async(@reply_token, @rumor, @platform) if forwardable?(@rumor)
+  end
+
+  def answer_query
+    CoronavirusReplyWorker.perform_async(@reply_token, @rumor, @platform)
   end
 end

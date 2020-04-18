@@ -11,6 +11,10 @@ class Listener::LinesController < ApplicationController
 
   private
 
+  def set_platform
+    @platform = 'line'
+  end
+
   def event
     @uniq_event_tokens = params['events'].map { |e| e['replyToken'] }.uniq
     @events = params['events'].select { |e| @uniq_event_tokens.include?(e['replyToken']) }
@@ -38,14 +42,6 @@ class Listener::LinesController < ApplicationController
     end
   end
 
-  def check_rumor
-    ReplyWorker.perform_async(@reply_token, @rumor) if forwardable?(@rumor)
-  end
-
-  def answer_query
-    CoronavirusReplyWorker.perform_async(@reply_token, @rumor)
-  end
-
   def introduce(event)
     reply_token = event['replyToken']
     Intro.talk(reply_token)
@@ -61,31 +57,5 @@ class Listener::LinesController < ApplicationController
 
   def group_chat?
     @room_id.present?
-  end
-
-  def get_current_user
-    @user = User.from_line.find_by(external_id: @user_id)
-  end
-
-  def check_intention
-    if MENU[:keywords].include?(@rumor&.downcase)
-      # to start the menu
-      @user ||= User.new(external_id: @user_id)
-      @user.from_line unless @user.platform
-      @user.menu_level = 1 # ready to query
-      @user.save
-      @rumor = "0" # go to menu
-    elsif @user && @user.menu_level > 0 && @rumor&.downcase == 'ok'
-      # to end the menu
-      @user.menu_level = 0 # stop querying
-      @user.save
-    end
-  end
-
-  def about_coronavirus?
-    get_current_user
-    check_intention
-    return unless @user
-    @user.menu_level > 0
   end
 end

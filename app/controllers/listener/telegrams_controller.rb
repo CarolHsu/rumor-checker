@@ -3,16 +3,23 @@ class Listener::TelegramsController < ApplicationController
   before_action :get_params, only: [:check]
 
   def check
-    check_rumor
+    if private_chat?
+      if about_coronavirus?
+        answer_query
+      else
+        check_rumor
+      end
+    else
+      check_rumor
+    end
 
     head :ok
   end
 
   private
 
-  def check_rumor
-    return unless forwardable?(@rumor)
-    ReplyWorker.perform_async(@reply_token, @rumor, 'telegram')
+  def set_platform
+    @platform = 'telegram'
   end
 
   def get_message
@@ -23,5 +30,9 @@ class Listener::TelegramsController < ApplicationController
     @reply_token = @message[:chat][:id]
     @chat_type   = @message[:chat][:type]
     @rumor       = @message[:text]
+  end
+
+  def private_chat?
+    @chat_type == 'private'
   end
 end
