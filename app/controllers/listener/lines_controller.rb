@@ -75,7 +75,7 @@ class Listener::LinesController < ApplicationController
       @user.menu_level = 1 # ready to query
       @user.save
       @rumor = "0" # go to menu
-    elsif @user && @user.menu_level > 0 && @rumor.downcase == 'ok'
+    elsif @user && @user.menu_level > 0 && @rumor&.downcase == 'ok'
       # to end the menu
       @user.menu_level = 0 # stop querying
       @user.save
