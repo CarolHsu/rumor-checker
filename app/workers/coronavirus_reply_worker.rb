@@ -54,7 +54,7 @@ class CoronavirusReplyWorker
         body: {
           chat_id: @token,
           text: reply
-        }
+        }.to_json
       )
     end
   end
