@@ -53,9 +53,11 @@ class Listener::LinesController < ApplicationController
     @rumor       = event['message']['text']
     @user_id     = event['source']['userId']
     @room_id     = event['source']['roomId']
+    @group_id    = event['source']['groupId']
+    @chat_type   = event['source']['type']
   end
 
   def group_chat?
-    @room_id.present?
+    @room_id.present? || @group_id.present?
   end
 end
