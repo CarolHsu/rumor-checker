@@ -3,10 +3,13 @@ require 'line/bot'
 class ReplyWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
+  AIRTABLE_YAML = File.join(Rails.root, 'config', 'ignore_list.yml')
 
   def perform(token, rumor, platform='line')
     @token = token # chat_id for telegram
     @platform = platform
+    return if not_rumor?(rumor)
+
     article = Rumors::Api::Client.search(rumor)
     return unless article
 
@@ -16,6 +19,12 @@ class ReplyWorker
   end
 
   private
+
+  def not_rumor?(rumor)
+    return false unless File.exist?(AIRTABLE_YAML)
+    not_rumores = YAML.load_file(AIRTABLE_YAML).values
+    not_rumores.include?(rumor)
+  end
 
   def talk(reply)
     case @platform
