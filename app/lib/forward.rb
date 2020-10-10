@@ -22,7 +22,7 @@ class Forward
         text: '我也沒有看過這個訊息耶。'
       }, {
         type: 'flex',
-        altText: '要不要傳給 Cofacts 真的假的問問看呢？我平常也都是問它的唷！',
+        altText: '要不要傳給 Cofacts 真的假的機器人問問看呢？我平常也都是問它的唷！',
         contents: {
           type: 'bubble',
           body: {
@@ -44,7 +44,7 @@ class Forward
                   },
                   {
                     type: 'span',
-                    text: '問問看呢？<br>它有最大的資料庫、也會搜集新謠言，我平常都是問它的唷！'
+                    text: '機器人問問看呢？<br>它有最大的資料庫、也會搜集新謠言，我平常都是問它的唷！'
                   }
                 ]
               },
