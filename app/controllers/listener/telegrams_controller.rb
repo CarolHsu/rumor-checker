@@ -3,14 +3,10 @@ class Listener::TelegramsController < ApplicationController
   before_action :get_params, only: [:check]
 
   def check
-    if private_chat?
-      if about_coronavirus?
-        answer_query
-      else
-        check_rumor
-      end
+    if private_chat? and about_coronavirus?
+      answer_query
     else
-      check_rumor
+      check_rumor !private_chat?
     end
 
     head :ok
