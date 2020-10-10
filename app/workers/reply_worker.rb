@@ -5,17 +5,20 @@ class ReplyWorker
   sidekiq_options retry: false
   AIRTABLE_YAML = File.join(Rails.root, 'config', 'ignore_list.yml')
 
-  def perform(token, rumor, platform='line')
+  def perform(token, rumor, platform='line', is_group_chat=false)
     @token = token # chat_id for telegram
     @platform = platform
     return if not_rumor?(rumor)
 
     article = Rumors::Api::Client.search(rumor)
-    return unless article
-
-    reply = ReplyDecorator.new(article["articleReplies"], article["id"]).prettify
-
-    talk(reply)
+    if article
+      reply = ReplyDecorator.new(article["articleReplies"], article["id"]).prettify
+      talk(reply)
+    elsif not is_group_chat
+      result = Forward.talk(@token, rumor)
+      logger.info(result.inspect)
+      logger.info(result.read_body)
+    end
   end
 
   private

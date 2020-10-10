@@ -26,14 +26,10 @@ class Listener::LinesController < ApplicationController
     intro_events = %w(join)
     case @event_type
     when 'message'
-      if group_chat?
-        check_rumor
-      else # 1-on-1 chat
-        if about_coronavirus?
-          answer_query
-        else
-          check_rumor
-        end
+      if !group_chat? and about_coronavirus?
+        answer_query
+      else
+        check_rumor group_chat?
       end
     when *intro_events
       introduce(event)

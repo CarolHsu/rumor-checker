@@ -36,8 +36,8 @@ class ApplicationController < ActionController::API
     @user.menu_level > 0
   end
 
-  def check_rumor
-    ReplyWorker.perform_async(@reply_token, @rumor, @platform) if forwardable?(@rumor)
+  def check_rumor is_group_chat
+    ReplyWorker.perform_async(@reply_token, @rumor, @platform, is_group_chat) if forwardable?(@rumor)
   end
 
   def answer_query
