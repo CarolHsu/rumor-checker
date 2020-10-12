@@ -84,7 +84,7 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    puma (3.12.4)
+    puma (3.12.6)
     rack (2.2.2)
     rack-protection (2.0.8.1)
       rack
@@ -193,7 +193,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry
-  puma (~> 3.0)
+  puma (~> 3.12)
   rails (~> 5.0.5)
   redis-rails
   rspec-rails (~> 3.8)
