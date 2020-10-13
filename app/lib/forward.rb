@@ -4,7 +4,7 @@ class Forward
   class << self
     def talk(token, message)
       initiate_client
-      @client.reply_message(token, forwardToCofacts(message))
+      @client.reply_message(token, forward_to_cofacts(message))
     end
 
     private
@@ -16,7 +16,7 @@ class Forward
       end
     end
 
-    def forwardToCofacts message
+    def forward_to_cofacts message
       [{
         type: 'text',
         text: '我也沒有看過這個訊息耶。'
@@ -66,4 +66,3 @@ class Forward
     end
   end
 end
-

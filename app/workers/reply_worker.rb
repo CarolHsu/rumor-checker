@@ -14,7 +14,7 @@ class ReplyWorker
     if article
       reply = ReplyDecorator.new(article["articleReplies"], article["id"]).prettify
       talk(reply)
-    elsif not is_group_chat
+    elsif (!is_group_chat && platform == 'line')
       result = Forward.talk(@token, rumor)
       logger.info(result.inspect)
       logger.info(result.read_body)
