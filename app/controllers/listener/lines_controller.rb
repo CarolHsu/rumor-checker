@@ -26,7 +26,7 @@ class Listener::LinesController < ApplicationController
     intro_events = %w(join)
     case @event_type
     when 'message'
-      if !group_chat? and about_coronavirus?
+      if !group_chat? && about_coronavirus?
         answer_query
       else
         check_rumor group_chat?
