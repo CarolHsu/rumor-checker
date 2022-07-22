@@ -176,7 +176,7 @@ GEM
       unicode_utils (~> 1.4)
     thor (0.20.3)
     thread_safe (0.3.6)
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unicode_utils (1.4.0)
     websocket-driver (0.6.5)
