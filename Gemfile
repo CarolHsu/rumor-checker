@@ -29,7 +29,7 @@ gem 'redis-rails'
 gem 'line-bot-api'
 gem 'figaro'
 gem 'rumors-api-client'
-gem 'sidekiq'
+gem 'sidekiq', '>= 7.1.3'
 gem "sentry-raven"
 
 group :development, :test do
